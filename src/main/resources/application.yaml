@@ -18,3 +18,8 @@ spring:
     redis:
       host: localhost
       port: 6379
+
+jwt:
+  secret: 2794f906cbd0d2f4568db2079444fe3433160c861d776a33b745d066f4309763
+  expiration: 3600000
+  issuer: jwt-example
