@@ -1,0 +1,44 @@
+### Register a new user
+POST http://localhost:8080/user/register
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password1"
+}
+
+###
+
+### Login with the user
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password1"
+}
+
+###
+
+### Get user info
+GET http://localhost:8080/user?username=user1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlzcyI6Imp3dC1leGFtcGxlIiwiaWF0IjoxNzMzNDc0NDU2LCJleHAiOjE3MzM0NzgwNTZ9.yNt5wdmUUgSoeBkrys1vIyoCWF-JkUNACrIw8ZTA-dgsy6bEESZTad7LZ5S1TP2z_pmrt6fawPxOps-U4ngFuQ
+
+###
+
+### Logout the user
+POST http://localhost:8080/user/logout
+Content-Type: application/json
+Authorization: Bearer token
+
+###
+
+### Refresh token
+POST http://localhost:8080/user/refresh-token
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "token": "oldToken"
+}
