@@ -3,7 +3,6 @@ package com.security.jwt.infrastructure.in.web;
 import com.security.jwt.application.port.in.service.UserService;
 import com.security.jwt.domain.User;
 import com.security.jwt.infrastructure.in.web.request.UserRequest;
-import com.security.jwt.infrastructure.in.web.request.UserTokenRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,10 +32,5 @@ public class UserApiController {
     @PostMapping("/logout")
     public void logout(@RequestHeader("Authorization") String token) {
         userService.logout(token);
-    }
-
-    @PostMapping("/refresh-token")
-    public String refreshToken(@RequestBody UserTokenRequest request) {
-        return userService.refreshToken(request.toUserToken());
     }
 }

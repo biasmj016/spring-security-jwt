@@ -12,7 +12,6 @@ public interface UserService {
     String login(User user);
     User userInfo(String username);
     void logout(String token);
-    String refreshToken(UserToken userToken);
 
     @Service
     class UserServiceImpl implements UserService {
@@ -20,7 +19,6 @@ public interface UserService {
         private final FindUser findUser;
         private final SaveUserToken saveUserToken;
         private final DeleteUserToken deleteUserToken;
-        private final FindUserToken findUserToken;
         private final PasswordEncryption passwordEncryption;
         private final JwtTokenProvider jwtTokenProvider;
 
@@ -29,14 +27,12 @@ public interface UserService {
                 FindUser findUser,
                 SaveUserToken saveUserToken,
                 DeleteUserToken deleteUserToken,
-                FindUserToken findUserToken,
                 PasswordEncryption passwordEncryption,
                 JwtTokenProvider jwtTokenProvider) {
             this.registUser = registUser;
             this.findUser = findUser;
             this.saveUserToken = saveUserToken;
             this.deleteUserToken = deleteUserToken;
-            this.findUserToken = findUserToken;
             this.passwordEncryption = passwordEncryption;
             this.jwtTokenProvider = jwtTokenProvider;
         }
@@ -73,21 +69,6 @@ public interface UserService {
                 String username = jwtTokenProvider.getUsername(jwtToken);
                 deleteUserToken.delete(username);
             }
-        }
-
-        @Override
-        public String refreshToken(UserToken userToken) {
-            String username = userToken.username();
-            String refreshToken = userToken.token();
-            UserToken storedToken = findUserToken.find(username);
-
-            if(!storedToken.token().equals(refreshToken)){
-                throw new IllegalArgumentException("Invalid refresh token");
-            }
-
-            String newToken = jwtTokenProvider.createToken(username);
-            saveUserToken.save(new UserToken(username, newToken));
-            return newToken;
         }
     }
 }
