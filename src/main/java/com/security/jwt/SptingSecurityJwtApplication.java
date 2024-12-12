@@ -1,6 +1,6 @@
 package com.security.jwt;
 
-import com.security.jwt.infrastructure.config.security.SecurityProperties;
+import com.security.jwt.security.config.SecurityProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
