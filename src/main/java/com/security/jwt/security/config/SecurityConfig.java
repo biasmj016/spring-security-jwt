@@ -21,7 +21,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, AccessUserService userDetailsService) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AccessUserService userDetailsService, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
@@ -31,6 +31,9 @@ public class SecurityConfig {
                 .addFilterBefore(
                         jwtTokenFilter(userDetailsService),
                         UsernamePasswordAuthenticationFilter.class
+                )
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 );
         return http.build();
     }
