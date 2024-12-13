@@ -12,4 +12,8 @@ public record User (
     public User(String username, String password) {
         this(null, username, password, null, null);
     }
+
+    public User updateLoginDate() {
+        return new User(id, username, password, createdAt, LocalDateTime.now());
+    }
 }
