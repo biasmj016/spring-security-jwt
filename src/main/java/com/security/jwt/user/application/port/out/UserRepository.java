@@ -12,6 +12,7 @@ public interface UserRepository {
     User findByUsername(String username);
     int countByUsername(String username);
     User save(User user);
+    void update(User user);
 
     @Repository
     class UserRepositoryImpl implements UserRepository {
@@ -39,6 +40,14 @@ public interface UserRepository {
         @Transactional
         public User save(User user) {
             return userJpaRepository.save(new UserEntity(user)).toDomain();
+        }
+
+        @Override
+        @Transactional
+        public void update(User user) {
+            userJpaRepository.findByUsername(user.username())
+                    .orElseThrow(() -> new NoSuchElementException("User not found"))
+                    .updateUser(user);
         }
     }
 }

@@ -17,6 +17,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String username;
     private String password;
     private LocalDateTime createdAt;
@@ -36,5 +37,10 @@ public class UserEntity {
                 this.createdAt,
                 this.lastLogin
         );
+    }
+
+    public void updateUser(User user) {
+        this.password = user.password();
+        this.lastLogin = user.lastLogin();
     }
 }
