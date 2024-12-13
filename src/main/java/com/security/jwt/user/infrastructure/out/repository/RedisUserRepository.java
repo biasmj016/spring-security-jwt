@@ -17,7 +17,7 @@ public class RedisUserRepository {
     }
 
 
-    public UserToken findByUsernameOrNull(String username) {
+    public UserToken findByUsername(String username) {
         return Optional.ofNullable((String) redisTemplate.opsForHash().get(KEY, username))
                 .map(token -> new UserToken(username, token))
                 .orElseThrow(() -> new NoSuchElementException("User not found"));

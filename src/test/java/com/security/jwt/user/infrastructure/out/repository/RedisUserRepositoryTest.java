@@ -32,12 +32,12 @@ class RedisUserRepositoryTest {
     }
 
     @Test
-    void testFindByUsernameOrNull_UserExists() {
+    void testFindByUsername_UserExists() {
         String username = "testUser";
         String token = "testToken";
         redisUserRepository.save(new UserToken(username, token));
 
-        UserToken userToken = redisUserRepository.findByUsernameOrNull(username);
+        UserToken userToken = redisUserRepository.findByUsername(username);
 
         assertNotNull(userToken);
         assertEquals(username, userToken.username());
@@ -48,7 +48,7 @@ class RedisUserRepositoryTest {
     void testFindByUsernameOrNull_UserNotFound() {
         String username = "nonExistentUser";
 
-        assertThrows(NoSuchElementException.class, () -> redisUserRepository.findByUsernameOrNull(username));
+        assertThrows(NoSuchElementException.class, () -> redisUserRepository.findByUsername(username));
     }
 
     @Test
@@ -59,7 +59,7 @@ class RedisUserRepositoryTest {
 
         redisUserRepository.save(userToken);
 
-        UserToken retrievedToken = redisUserRepository.findByUsernameOrNull(username);
+        UserToken retrievedToken = redisUserRepository.findByUsername(username);
         assertEquals(token, retrievedToken.token());
     }
 
@@ -71,6 +71,6 @@ class RedisUserRepositoryTest {
 
         redisUserRepository.delete(username);
 
-        assertThrows(NoSuchElementException.class, () -> redisUserRepository.findByUsernameOrNull(username));
+        assertThrows(NoSuchElementException.class, () -> redisUserRepository.findByUsername(username));
     }
 }
