@@ -1,6 +1,6 @@
 package com.security.jwt.user.infrastructure.in.web.request;
 
-import com.security.jwt.user.domain.UserToken;
+import com.security.jwt.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserTokenRequest {
+public class RegistUserRequest {
     private String username;
-    private String token;
+    private String password;
 
-    public UserToken toUserToken() {
-        return new UserToken(username, token);
+    public User toUser() {
+        return new User(username, password);
     }
 }

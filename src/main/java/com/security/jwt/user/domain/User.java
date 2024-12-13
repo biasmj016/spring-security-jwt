@@ -1,5 +1,7 @@
 package com.security.jwt.user.domain;
 
+import com.security.jwt.user.infrastructure.in.web.response.FindUserResponse;
+
 import java.time.LocalDateTime;
 
 public record User (
@@ -15,5 +17,9 @@ public record User (
 
     public User updateLoginDate() {
         return new User(id, username, password, createdAt, LocalDateTime.now());
+    }
+
+    public FindUserResponse toFindUserResponse() {
+        return new FindUserResponse(username, createdAt, lastLogin);
     }
 }

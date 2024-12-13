@@ -5,7 +5,7 @@ import com.security.jwt.user.infrastructure.out.repository.RedisUserRepository;
 import org.springframework.stereotype.Component;
 
 public interface SaveUserToken {
-    void save(UserToken userToken);
+    UserToken save(UserToken userToken);
 
     @Component
     class SaveUserTokenUseCase implements SaveUserToken {
@@ -16,8 +16,9 @@ public interface SaveUserToken {
         }
 
         @Override
-        public void save(UserToken userToken) {
+        public UserToken save(UserToken userToken) {
             userRepository.save(userToken);
+            return userToken;
         }
     }
 }
