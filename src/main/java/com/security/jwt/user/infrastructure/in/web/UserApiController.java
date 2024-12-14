@@ -1,11 +1,14 @@
 package com.security.jwt.user.infrastructure.in.web;
 
+import com.security.jwt.global.response.ApiResponse;
 import com.security.jwt.user.application.port.in.service.UserService;
-import com.security.jwt.user.domain.User;
-import com.security.jwt.user.infrastructure.in.web.request.RegistUserRequest;
 import com.security.jwt.user.infrastructure.in.web.request.LoginUserRequest;
+import com.security.jwt.user.infrastructure.in.web.request.RegistUserRequest;
 import com.security.jwt.user.infrastructure.in.web.response.FindUserResponse;
+import com.security.jwt.user.infrastructure.in.web.response.LoginUserResponse;
 import org.springframework.web.bind.annotation.*;
+
+import static com.security.jwt.global.response.ApiResponse.success;
 
 @RestController
 @RequestMapping("/user")
@@ -17,22 +20,24 @@ public class UserApiController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegistUserRequest request) {
+    public ApiResponse<Void> register(@RequestBody RegistUserRequest request) {
         userService.register(request.toUser());
+        return success();
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginUserRequest user) {
-        return userService.login(user.toUser());
+    public ApiResponse<LoginUserResponse> login(@RequestBody LoginUserRequest user) {
+        return success(userService.login(user.toUser()).toLoginUserResponse());
     }
 
     @GetMapping
-    public FindUserResponse userInfo(@RequestParam String username) {
-        return userService.userInfo(username).toFindUserResponse();
+    public ApiResponse<FindUserResponse> userInfo(@RequestParam String username) {
+        return success(userService.userInfo(username).toFindUserResponse());
     }
 
     @PostMapping("/logout")
-    public void logout(@RequestHeader("Authorization") String token) {
+    public ApiResponse<Void> logout(@RequestHeader("Authorization") String token) {
         userService.logout(token);
+        return success();
     }
 }
