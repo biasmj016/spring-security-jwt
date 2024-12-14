@@ -31,14 +31,3 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImlzcyI6Imp3dC1le
 POST http://localhost:8080/user/logout
 Content-Type: application/json
 Authorization: Bearer token
-
-###
-
-### Refresh token
-POST http://localhost:8080/user/refresh-token
-Content-Type: application/json
-
-{
-  "username": "user1",
-  "token": "oldToken"
-}
