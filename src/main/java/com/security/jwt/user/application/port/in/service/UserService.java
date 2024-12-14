@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 public interface UserService {
     void register(User user);
-    String login(User user);
+    UserToken login(User user);
     User userInfo(String username);
     void logout(String token);
 
@@ -48,7 +48,7 @@ public interface UserService {
         }
 
         @Override
-        public String login(User user) {
+        public UserToken login(User user) {
             User foundUser = findUser.findUser(user.username());
 
             if (!passwordEncryption.matches(user.password(), foundUser.password())) {
@@ -58,7 +58,7 @@ public interface UserService {
             updateUser.updateLoginDate(user.username());
 
             String token = jwtTokenProvider.createToken(user.username());
-            return saveUserToken.save(new UserToken(user.username(), token)).token();
+            return saveUserToken.save(new UserToken(user.username(), token));
         }
 
         @Override
