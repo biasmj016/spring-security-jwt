@@ -6,7 +6,6 @@
 - 역할 기반 접근 제어(Role-Based Access Control)
 - 안전한 비밀번호 암호화(BCrypt 사용)
 - 로그아웃 시 토큰 무효화 처리
-- Refresh Token을 활용한 세션 갱신 기능
 
 
 ##  기술 스택
