@@ -1,5 +1,6 @@
-package com.security.jwt.security.config;
+package com.security.jwt.security.filter;
 
+import com.security.jwt.security.config.JwtTokenProvider;
 import com.security.jwt.security.service.AccessUserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
